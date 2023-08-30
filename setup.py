@@ -4,7 +4,7 @@ setup(name='pixiedust_node',
       version='0.2.5',
       description='Pixiedust extension for Node.js',
       url='https://github.com/pixiedust/pixiedust_node',
-      install_requires=['pixiedust', 'pandas', 'ipython'],
+      install_requires=['pixiedust', 'pandas', 'ipython', 'jinja2'],
       package_data={
         '': ['*.js','*.json']
       },
