@@ -20,6 +20,7 @@ from IPython.core.error import TryNext
 import warnings
 from .node import Node, Npm
 import os
+import atexit
 from pixiedust.utils.shellAccess import ShellAccess
 
 # pixiedust magics to interpret cells starting with %%node
@@ -48,9 +49,9 @@ class PixiedustNodeMagics(Magics):
         self.n.write(cell)
 
 # call once when the Kernel shuts down
-def shutdown_hook(ipython):
+def shutdown_hook():
     node.terminate()
-    raise TryNext
+    print ("Shutting down node")
 
 try:
     with warnings.catch_warnings():
@@ -66,7 +67,8 @@ try:
         ip.register_magics(magics)
 
         # register for shutdown hook
-        ip.set_hook('shutdown_hook', shutdown_hook)
+        atexit.register(shutdown_hook)
+        #ip.set_hook('shutdown_hook', shutdown_hook)
 
 except NameError:
     # IPython not available we must be in a spark executor\
